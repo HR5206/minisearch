@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>minisearch</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Space Mono', monospace;
+            margin: 0;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 800px;
+        }
+        h1 {
+            font-size: 2rem;
+            letter-spacing: 0.3em;
+            text-transform: lowercase;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        form {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 2rem;
+        }
+        input[type="text"] {
+            flex: 1;
+            border: 1px solid #888;
+            background: #000;
+            color: #fff;
+            padding: 12px;
+            font: inherit;
+            border-radius: 0;
+            outline: none;
+        }
+        button {
+            border: 1px solid #fff;
+            background: #000;
+            color: #fff;
+            padding: 10px 24px;
+            font: inherit;
+            cursor: pointer;
+            border-radius: 0;
+        }
+        button:hover {
+            background: #333;
+        }
+        .result-card {
+            border: 1px solid #333;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+        .result-title {
+            color: #fff;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .result-url {
+            color: #888;
+            font-size: 0.8rem;
+            margin-bottom: 8px;
+            word-break: break-all;
+        }
+        .result-score {
+            color: #888;
+            font-size: 0.75rem;
+            font-family: monospace;
+            margin-bottom: 8px;
+        }
+        .result-snippet {
+            color: #aaa;
+            font-size: 0.9rem;
+            margin-top: 8px;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>minisearch</h1>
+        <form action="/" method="GET">
+            <input type="text" name="q" value="{{ query }}" placeholder="search..." autocomplete="off">
+            <button type="submit">search</button>
+        </form>
+        <div class="results">
+            {% for result in results %}
+                <div class="result-card">
+                    <div class="result-title">{{ result.title }}</div>
+                    <div class="result-url">{{ result.url }}</div>
+                    <div class="result-score">score: {{ result.score|floatformat:6 }}</div>
+                    <div class="result-snippet">{{ result.snippet }}</div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
